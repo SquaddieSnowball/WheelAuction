@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.2" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\WheelAuction.Application\WheelAuction.Application.csproj" />
+		<ProjectReference Include="..\WheelAuction.Infrastructure\WheelAuction.Infrastructure.csproj" />
+		<ProjectReference Include="..\WheelAuction.WebUI.Client\WheelAuction.WebUI.Client.csproj" />
+	</ItemGroup>
+
+</Project>
