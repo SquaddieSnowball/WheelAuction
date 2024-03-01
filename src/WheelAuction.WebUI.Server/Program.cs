@@ -4,8 +4,8 @@ WebApplicationBuilder applicationBuilder = WebApplication.CreateBuilder(args);
 
 applicationBuilder.Services
 	.AddRazorComponents()
-	.AddInteractiveServerComponents()
-	.AddInteractiveWebAssemblyComponents();
+	.AddInteractiveWebAssemblyComponents()
+	.AddInteractiveServerComponents();
 
 WebApplication application = applicationBuilder.Build();
 
@@ -28,8 +28,8 @@ application
 
 application
 	.MapRazorComponents<App>()
-	.AddInteractiveServerRenderMode()
 	.AddInteractiveWebAssemblyRenderMode()
+	.AddInteractiveServerRenderMode()
 	.AddAdditionalAssemblies(typeof(WheelAuction.WebUI.Client.Components._Imports).Assembly);
 
 await application.RunAsync();

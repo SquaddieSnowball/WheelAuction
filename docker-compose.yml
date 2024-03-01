@@ -1,0 +1,50 @@
+version: '3.4'
+
+services:
+
+  wheelauction.webui:
+    container_name: wheelauction-webui
+    image: ${DOCKER_REGISTRY-}wheelauctionwebui
+    build:
+      context: .
+      dockerfile: src/WheelAuction.WebUI.Server/Dockerfile
+    ports:
+      - 8080:8080
+      - 8081:8081
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTPS_PORTS=8081
+
+  wheelauction.db:
+    container_name: wheelauction-db
+    image: postgres:latest
+    ports:
+      - 5432:5432
+    volumes:
+      - ${APPDATA}/WheelAuction/containers/wheelauction-db/volumes/dbdata:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=wheelauction
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    restart: always
+
+  wheelauction.cache:
+    container_name: wheelauction-cache
+    image: redis:latest
+    ports:
+      - 6379:6379
+    restart: always
+
+  wheelauction.seq:
+    container_name: wheelauction-seq
+    image: datalust/seq:latest
+    ports:
+      - 5341:5341
+      - 5342:80
+    environment:
+      - ACCEPT_EULA=Y
+    restart: always

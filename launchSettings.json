@@ -1,0 +1,38 @@
+{
+    "profiles": {
+        "Docker Compose (All services)": {
+            "commandName": "DockerCompose",
+            "commandVersion": "1.0",
+            "composeLaunchAction": "None",
+            "composeLaunchServiceName": "wheelauction.webui",
+            "serviceActions": {
+                "wheelauction.cache": "StartWithoutDebugging",
+                "wheelauction.db": "StartWithoutDebugging",
+                "wheelauction.seq": "StartWithoutDebugging",
+                "wheelauction.webui": "StartDebugging"
+            }
+        },
+        "Docker Compose (External services)": {
+            "commandName": "DockerCompose",
+            "commandVersion": "1.0",
+            "serviceActions": {
+                "wheelauction.cache": "StartWithoutDebugging",
+                "wheelauction.db": "StartWithoutDebugging",
+                "wheelauction.seq": "StartWithoutDebugging",
+                "wheelauction.webui": "DoNotStart"
+            }
+        },
+        "Docker Compose (Web UI)": {
+            "commandName": "DockerCompose",
+            "commandVersion": "1.0",
+            "composeLaunchAction": "None",
+            "composeLaunchServiceName": "wheelauction.webui",
+            "serviceActions": {
+                "wheelauction.cache": "DoNotStart",
+                "wheelauction.db": "DoNotStart",
+                "wheelauction.seq": "DoNotStart",
+                "wheelauction.webui": "StartDebugging"
+            }
+        }
+    }
+}
