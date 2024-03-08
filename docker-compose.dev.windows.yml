@@ -1,0 +1,17 @@
+version: "3.4"
+
+services:
+  wheelauction.webui:
+    build:
+      dockerfile: src\WheelAuction.WebUI.Server\Dockerfile
+    volumes:
+      - ${APPDATA}\ASP.NET\Https:/home/app/.aspnet/https:ro
+      - ${APPDATA}\Microsoft\UserSecrets:/home/app/.microsoft/usersecrets:ro
+
+  wheelauction.db:
+    volumes:
+      - ${LOCALAPPDATA}\WheelAuction\docker-compose\services\wheelauction.db\volumes\data:/var/lib/postgresql/data:rw
+
+  wheelauction.seq:
+    volumes:
+      - ${LOCALAPPDATA}\WheelAuction\docker-compose\services\wheelauction.seq\volumes\data:/data:rw

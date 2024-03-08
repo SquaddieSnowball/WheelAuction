@@ -3,43 +3,43 @@
     "profiles": {
         "Container (Dockerfile)": {
             "commandName": "Docker",
+            "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
             "environmentVariables": {
                 "ASPNETCORE_ENVIRONMENT": "Development",
                 "ASPNETCORE_HTTP_PORTS": "8080",
                 "ASPNETCORE_HTTPS_PORTS": "8081"
             },
             "httpPort": 8080,
-            "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
             "sslPort": 8081,
             "useSSL": true
         },
         "Kestrel (HTTP)": {
-            "applicationUrl": "http://localhost:8080",
             "commandName": "Project",
-            "dotnetRunMessages": true,
+            "applicationUrl": "http://localhost:8080",
             "environmentVariables": {
                 "ASPNETCORE_ENVIRONMENT": "Development"
             },
+            "dotnetRunMessages": true,
             "inspectUri": "{wsProtocol}://{url.hostname}:{url.port}/_framework/debug/ws-proxy?browser={browserInspectUri}"
         },
         "Kestrel (HTTPS)": {
-            "applicationUrl": "http://localhost:8080;https://localhost:8081",
             "commandName": "Project",
-            "dotnetRunMessages": true,
+            "applicationUrl": "http://localhost:8080;https://localhost:8081",
             "environmentVariables": {
                 "ASPNETCORE_ENVIRONMENT": "Development"
             },
+            "dotnetRunMessages": true,
             "inspectUri": "{wsProtocol}://{url.hostname}:{url.port}/_framework/debug/ws-proxy?browser={browserInspectUri}"
         },
         "WSL": {
             "commandName": "WSL2",
-            "distributionName": "",
+            "launchUrl": "https://localhost:8081",
             "environmentVariables": {
                 "ASPNETCORE_ENVIRONMENT": "Development",
                 "ASPNETCORE_HTTP_PORTS": "8080",
                 "ASPNETCORE_HTTPS_PORTS": "8081"
             },
-            "launchUrl": "https://localhost:8081"
+            "distributionName": ""
         }
     }
 }

@@ -1,50 +1,53 @@
-version: '3.4'
+version: "3.4"
 
 services:
-
   wheelauction.webui:
+    depends_on:
+      wheelauction.db:
+        condition: service_healthy
+      wheelauction.cache:
+        condition: service_healthy
+      wheelauction.seq:
+        condition: service_started
     container_name: wheelauction-webui
     image: ${DOCKER_REGISTRY-}wheelauctionwebui
     build:
       context: .
-      dockerfile: src/WheelAuction.WebUI.Server/Dockerfile
     ports:
       - 8080:8080
       - 8081:8081
-    volumes:
-      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
-      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_HTTP_PORTS=8080
-      - ASPNETCORE_HTTPS_PORTS=8081
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
+      - ASPNETCORE_HTTP_PORTS=${ASPNETCORE_HTTP_PORTS}
+      - ASPNETCORE_HTTPS_PORTS=${ASPNETCORE_HTTPS_PORTS}
 
   wheelauction.db:
     container_name: wheelauction-db
-    image: postgres:latest
+    image: postgres
     ports:
       - 5432:5432
-    volumes:
-      - ${APPDATA}/WheelAuction/containers/wheelauction-db/volumes/dbdata:/var/lib/postgresql/data
     environment:
-      - POSTGRES_DB=wheelauction
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-    restart: always
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    healthcheck:
+      test: pg_isready -d ${POSTGRES_DB} -U ${POSTGRES_USER}
 
   wheelauction.cache:
     container_name: wheelauction-cache
-    image: redis:latest
+    image: redis
     ports:
       - 6379:6379
-    restart: always
+    healthcheck:
+      test: redis-cli ping | grep PONG
 
   wheelauction.seq:
     container_name: wheelauction-seq
-    image: datalust/seq:latest
+    image: datalust/seq
     ports:
       - 5341:5341
-      - 5342:80
+      - 45341:45341
+      - 5000:80
+      - 5001:443
     environment:
-      - ACCEPT_EULA=Y
-    restart: always
+      - ACCEPT_EULA=${ACCEPT_EULA}
