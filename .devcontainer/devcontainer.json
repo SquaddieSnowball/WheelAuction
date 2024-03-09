@@ -1,0 +1,21 @@
+{
+    "name": "C# (.NET)",
+    "image": "mcr.microsoft.com/devcontainers/dotnet:8.0",
+    "features": {
+        "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-azuretools.vscode-docker",
+                "ms-dotnettools.csdevkit"
+            ]
+        }
+    },
+    "portsAttributes": {
+        "8081": {
+            "protocol": "https"
+        }
+    },
+    "postCreateCommand": "chmod u+x ./tools/devcontainer_post_create_commands.sh && ./tools/devcontainer_post_create_commands.sh"
+}
