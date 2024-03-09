@@ -19,17 +19,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{6038F639-0
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "unit", "unit", "{1E66F45A-5A29-40DB-85B3-72A24A15C135}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "integration", "integration", "{0DCEB706-D8D1-4159-9AFB-81A0E49BAE19}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WheelAuction.Domain.UnitTests", "test\unit\WheelAuction.Domain.UnitTests\WheelAuction.Domain.UnitTests.csproj", "{3DC62472-A8F4-449B-B992-505FD04A332C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WheelAuction.Application.UnitTests", "test\unit\WheelAuction.Application.UnitTests\WheelAuction.Application.UnitTests.csproj", "{15391E8F-86EF-47FD-BA9F-0F76F250E63B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WheelAuction.Infrastructure.UnitTests", "test\unit\WheelAuction.Infrastructure.UnitTests\WheelAuction.Infrastructure.UnitTests.csproj", "{5416C48F-937F-40FC-9B1D-FD2EF2DF88BE}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "integration", "integration", "{0DCEB706-D8D1-4159-9AFB-81A0E49BAE19}"
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WheelAuction.Infrastructure.IntegrationTests", "test\integration\WheelAuction.Infrastructure.IntegrationTests\WheelAuction.Infrastructure.IntegrationTests.csproj", "{C316B093-9B75-4860-BE57-B4B4C34724C4}"
 EndProject
-Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{086E210F-353C-4AE5-8BD0-87FDEF6F1E35}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{00CAD6EE-D3CC-4F67-8C45-76C3191F96D9}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "WheelAuction.DockerCompose", "build\WheelAuction.DockerCompose\WheelAuction.DockerCompose.dcproj", "{086E210F-353C-4AE5-8BD0-87FDEF6F1E35}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -93,6 +95,7 @@ Global
 		{15391E8F-86EF-47FD-BA9F-0F76F250E63B} = {1E66F45A-5A29-40DB-85B3-72A24A15C135}
 		{5416C48F-937F-40FC-9B1D-FD2EF2DF88BE} = {1E66F45A-5A29-40DB-85B3-72A24A15C135}
 		{C316B093-9B75-4860-BE57-B4B4C34724C4} = {0DCEB706-D8D1-4159-9AFB-81A0E49BAE19}
+		{086E210F-353C-4AE5-8BD0-87FDEF6F1E35} = {00CAD6EE-D3CC-4F67-8C45-76C3191F96D9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AEE43CF2-C29A-4A01-8E9F-88CDBC7057B1}

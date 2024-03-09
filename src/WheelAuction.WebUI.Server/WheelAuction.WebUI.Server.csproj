@@ -7,7 +7,7 @@
 		<UserSecretsId>ff9acfb4-8117-434b-8da6-2c578925c574</UserSecretsId>
 		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 		<DockerfileContext>..\..</DockerfileContext>
-		<DockerComposeProjectPath>..\..\docker-compose.dcproj</DockerComposeProjectPath>
+		<DockerComposeProjectPath>..\..\build\WheelAuction.DockerCompose\WheelAuction.DockerCompose.dcproj</DockerComposeProjectPath>
 	</PropertyGroup>
 
 	<ItemGroup>
