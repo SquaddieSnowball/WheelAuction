@@ -1,5 +1,3 @@
-#! /usr/bin/bash
-
 # Generates a development certificate.
 dotnet dev-certs https -ep ${HOME}/.aspnet/https/wheelauction.pfx -p password
 
