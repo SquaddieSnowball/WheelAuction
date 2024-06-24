@@ -28,8 +28,8 @@ application
 
 application
 	.MapRazorComponents<App>()
+	.AddAdditionalAssemblies(typeof(WheelAuction.WebUI.Client.Components._Imports).Assembly)
 	.AddInteractiveWebAssemblyRenderMode()
-	.AddInteractiveServerRenderMode()
-	.AddAdditionalAssemblies(typeof(WheelAuction.WebUI.Client.Components._Imports).Assembly);
+	.AddInteractiveServerRenderMode();
 
 await application.RunAsync();

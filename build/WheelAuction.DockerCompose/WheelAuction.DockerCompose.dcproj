@@ -12,6 +12,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<None Include=".env" />
 		<None Include="docker-compose.yml" />
 		<None Include="docker-compose.dev.linux.yml">
 			<DependentUpon>docker-compose.yml</DependentUpon>

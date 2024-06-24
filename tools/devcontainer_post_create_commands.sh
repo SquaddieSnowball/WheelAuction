@@ -5,6 +5,6 @@ dotnet dev-certs https -ep ${HOME}/.aspnet/https/wheelauction.pfx -p password
 cd ./build/WheelAuction.DockerCompose
 ln -s docker-compose.dev.linux.yml docker-compose.override.yml
 
-# Restores solution projects.
+# Restores the solution.
 cd ../..
 dotnet restore
