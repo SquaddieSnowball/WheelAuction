@@ -1,0 +1,104 @@
+﻿@page "/Account/Login"
+
+@using Microsoft.AspNetCore.Identity
+@using WheelAuction.WebUI.Client.Components.Shared.Enumerations
+@using WheelAuction.WebUI.Client.Services.Abstractions
+@using WheelAuction.WebUI.Server.Authentication.Entities
+@using WheelAuction.WebUI.Server.Components.Account.InputModels
+@using WheelAuction.WebUI.Server.Logging.Authentication
+@using WheelAuction.WebUI.Server.Resources.Components.Account.Pages
+
+@inject ILogger<Login> Logger
+@inject IRedirectManager RedirectManager
+@inject IStringLocalizer<Login> StringLocalizer
+@inject SignInManager<User> SignInManager
+
+<WheelAuctionPageTitle>
+	@StringLocalizer[LoginResourceNames.PageTitle]
+</WheelAuctionPageTitle>
+
+<h2 class="mb-3">
+	@StringLocalizer[LoginResourceNames.PageHeader]
+</h2>
+<AlertMessage MessageType="@_alertMessageType" Title="@_alertMessageTitle" Message="@_alertMessageDescription" />
+<EditForm FormName="formLogin" Model="LoginInputModel" OnValidSubmit="LoginUser">
+	<FluentValidationValidator />
+	<div class="form-floating mb-3">
+		<InputText class="form-control" id="inputUserName" @bind-Value="LoginInputModel.UserName" placeholder="@nameof(LoginInputModel.UserName)" autocomplete="username" aria-required="true" />
+		<label class="form-label" for="inputUserName">
+			@StringLocalizer[LoginResourceNames.LabelInputUserName]
+		</label>
+		<ValidationMessage class="text-danger" For="() => LoginInputModel.UserName" />
+	</div>
+	<div class="form-floating mb-3">
+		<InputText class="form-control" id="inputPassword" type="password" @bind-Value="LoginInputModel.Password" placeholder="@nameof(LoginInputModel.Password)" autocomplete="current-password" aria-required="true" />
+		<label class="form-label" for="inputPassword">
+			@StringLocalizer[LoginResourceNames.LabelInputPassword]
+		</label>
+		<ValidationMessage class="text-danger" For="() => LoginInputModel.Password" />
+	</div>
+	<div class="form-check mb-3">
+		<InputCheckbox class="form-check-input" id="inputRememberMe" @bind-Value="LoginInputModel.RememberMe" />
+		<label class="form-check-label" for="inputRememberMe">
+			@StringLocalizer[LoginResourceNames.LabelInputRememberMe]
+		</label>
+	</div>
+	<div class="text-center mb-2">
+		<button class="btn btn-primary" type="submit">
+			@StringLocalizer[LoginResourceNames.ButtonFormLoginSubmit]
+		</button>
+	</div>
+	<p class="text-center">
+		@StringLocalizer[LoginResourceNames.TextNoAccount] <a href="Account/Register">@StringLocalizer[LoginResourceNames.LinkRegister]</a>
+	</p>
+</EditForm>
+
+@code {
+	private AlertMessageType _alertMessageType;
+	private string? _alertMessageTitle;
+	private string? _alertMessageDescription;
+
+	[SupplyParameterFromForm]
+	private LoginInputModel LoginInputModel { get; set; } = new();
+
+	[SupplyParameterFromQuery]
+	private string? ReturnUrl { get; set; }
+
+	private async Task LoginUser()
+	{
+		SignInResult signInResult = await SignInManager.PasswordSignInAsync(
+			LoginInputModel.UserName,
+			LoginInputModel.Password,
+			LoginInputModel.RememberMe,
+			true);
+
+		if (signInResult.Succeeded)
+		{
+			LogAuthentication.UserLoggedIn(Logger, LoginInputModel.UserName);
+
+			RedirectManager.RedirectTo(ReturnUrl);
+		}
+		else
+		{
+			if (signInResult.IsLockedOut)
+			{
+				ShowLoginErrorAlertMessage(StringLocalizer[
+					LoginResourceNames.AlertMessageLoginErrorDescriptionLockedOut]);
+			}
+			else
+			{
+				ShowLoginErrorAlertMessage(StringLocalizer[
+					LoginResourceNames.AlertMessageLoginErrorDescriptionCommon]);
+			}
+
+			LogAuthentication.LoginAttemptFailed(Logger, LoginInputModel.UserName);
+		}
+	}
+
+	private void ShowLoginErrorAlertMessage(string errorDescription)
+	{
+		_alertMessageType = AlertMessageType.Danger;
+		_alertMessageTitle = StringLocalizer[LoginResourceNames.AlertMessageLoginErrorTitle];
+		_alertMessageDescription = errorDescription;
+	}
+}
