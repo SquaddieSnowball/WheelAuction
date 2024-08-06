@@ -1,0 +1,128 @@
+﻿@page "/Account/Register"
+
+@using Microsoft.AspNetCore.Identity
+@using WheelAuction.WebUI.Client.Authentication.Enumerations
+@using WheelAuction.WebUI.Client.Components.Shared.Enumerations
+@using WheelAuction.WebUI.Client.Services.Abstractions
+@using WheelAuction.WebUI.Server.Authentication.Entities
+@using WheelAuction.WebUI.Server.Components.Account.InputModels
+@using WheelAuction.WebUI.Server.Logging.Authentication
+@using WheelAuction.WebUI.Server.Resources.Components.Account.Pages
+
+@inject ILogger<Register> Logger
+@inject IRedirectManager RedirectManager
+@inject IStringLocalizer<Register> StringLocalizer
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+<WheelAuctionPageTitle>
+	@StringLocalizer[RegisterResourceNames.PageTitle]
+</WheelAuctionPageTitle>
+
+<h2 class="mb-3">
+	@StringLocalizer[RegisterResourceNames.PageHeader]
+</h2>
+<AlertMessage MessageType="@_alertMessageType" Title="@_alertMessageTitle" Message="@_alertMessageDescription" />
+<EditForm FormName="formRegister" Model="RegisterInputModel" OnValidSubmit="RegisterUser">
+	<FluentValidationValidator />
+	<div class="form-floating mb-3">
+		<InputText class="form-control" id="inputUserName" @bind-Value="RegisterInputModel.UserName" placeholder="@nameof(RegisterInputModel.UserName)" autocomplete="username" aria-required="true" />
+		<label class="form-label" for="inputUserName">
+			@StringLocalizer[RegisterResourceNames.LabelInputUserName]
+		</label>
+		<ValidationMessage class="text-danger" For="() => RegisterInputModel.UserName" />
+	</div>
+	<div class="form-floating mb-3">
+		<InputText class="form-control" id="inputPassword" type="password" @bind-Value="RegisterInputModel.Password" placeholder="@nameof(RegisterInputModel.Password)" autocomplete="new-password" aria-required="true" />
+		<label class="form-label" for="inputPassword">
+			@StringLocalizer[RegisterResourceNames.LabelInputPassword]
+		</label>
+		<ValidationMessage class="text-danger" For="() => RegisterInputModel.Password" />
+	</div>
+	<div class="form-floating mb-3">
+		<InputText class="form-control" id="inputConfirmPassword" type="password" @bind-Value="RegisterInputModel.ConfirmPassword" placeholder="@nameof(RegisterInputModel.ConfirmPassword)" autocomplete="new-password" aria-required="true" />
+		<label class="form-label" for="inputConfirmPassword">
+			@StringLocalizer[RegisterResourceNames.LabelInputConfirmPassword]
+		</label>
+		<ValidationMessage class="text-danger" For="() => RegisterInputModel.ConfirmPassword" />
+	</div>
+	<div class="text-center">
+		<button class="btn btn-primary" type="submit">
+			@StringLocalizer[RegisterResourceNames.ButtonFormRegisterSubmit]
+		</button>
+	</div>
+</EditForm>
+
+@code {
+	private AlertMessageType _alertMessageType;
+	private string? _alertMessageTitle;
+	private string? _alertMessageDescription;
+
+	[SupplyParameterFromForm]
+	private RegisterInputModel RegisterInputModel { get; set; } = new();
+
+	[SupplyParameterFromQuery]
+	private string? ReturnUrl { get; set; }
+
+	private async Task RegisterUser()
+	{
+		User user = User.Create(RegisterInputModel.UserName);
+		IdentityResult identityResult = await UserManager.CreateAsync(user, RegisterInputModel.Password);
+
+		if (identityResult.Succeeded)
+		{
+			if (UserManager.SupportsUserRole)
+			{
+				identityResult = await UserManager.AddToRoleAsync(user, RoleName.User.ToString());
+
+				if (!identityResult.Succeeded)
+				{
+					await UserManager.DeleteAsync(user);
+
+					ShowRegistrationErrorAlertMessage(StringLocalizer[
+						RegisterResourceNames.AlertMessageRegistrationErrorDescriptionCommon]);
+
+					LogAuthentication.UserRoleAssignmentFailed(
+						Logger,
+						RegisterInputModel.UserName,
+						string.Join(';', identityResult.Errors.Select(identityError => identityError.Code)));
+
+					return;
+				}
+			}
+
+			LogAuthentication.UserRegistered(Logger, RegisterInputModel.UserName);
+
+			await SignInManager.SignInAsync(user, true);
+
+			LogAuthentication.UserLoggedIn(Logger, RegisterInputModel.UserName);
+
+			RedirectManager.RedirectTo(ReturnUrl);
+		}
+		else
+		{
+			if (identityResult.Errors.Any(identityError => identityError.Code is nameof(IdentityErrorDescriber.DuplicateUserName)))
+			{
+				ShowRegistrationErrorAlertMessage(StringLocalizer[
+					RegisterResourceNames.AlertMessageRegistrationErrorDescriptionUserExists,
+					RegisterInputModel.UserName]);
+			}
+			else
+			{
+				ShowRegistrationErrorAlertMessage(StringLocalizer[
+					RegisterResourceNames.AlertMessageRegistrationErrorDescriptionCommon]);
+			}
+
+			LogAuthentication.RegistrationAttemptFailed(
+				Logger,
+				string.Join(';', identityResult.Errors.Select(identityError => identityError.Code)));
+		}
+	}
+
+	private void ShowRegistrationErrorAlertMessage(string errorDescription)
+	{
+		_alertMessageType = AlertMessageType.Danger;
+		_alertMessageTitle = StringLocalizer[RegisterResourceNames.AlertMessageRegistrationErrorTitle];
+		_alertMessageDescription = errorDescription;
+	}
+}
