@@ -1,0 +1,15 @@
+﻿@using WheelAuction.WebUI.Client.Services.Abstractions
+
+@inject IRedirectManager RedirectManager
+@inject NavigationManager NavigationManager
+
+@code {
+	protected override void OnInitialized() =>
+		RedirectManager.RedirectTo(
+			"Account/Login",
+			new Dictionary<string, object?>()
+			{
+				{ "ReturnUrl", NavigationManager.ToBaseRelativePath(NavigationManager.Uri) }
+			},
+			true);
+}
