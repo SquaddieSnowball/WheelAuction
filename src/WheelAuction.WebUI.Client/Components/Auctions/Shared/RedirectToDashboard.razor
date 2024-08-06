@@ -1,0 +1,7 @@
+﻿@using WheelAuction.WebUI.Client.Services.Abstractions
+
+@inject IRedirectManager RedirectManager
+
+@code {
+	protected override void OnInitialized() => RedirectManager.RedirectTo("Auctions/Dashboard");
+}
