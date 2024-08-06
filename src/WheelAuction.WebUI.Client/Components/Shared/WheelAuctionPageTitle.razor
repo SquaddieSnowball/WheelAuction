@@ -1,0 +1,21 @@
+﻿@using WheelAuction.WebUI.Client.Resources.Components.Shared
+
+@inject IStringLocalizer<WheelAuctionPageTitle> StringLocalizer
+
+@if (ChildContent is null)
+{
+	<PageTitle>
+		@StringLocalizer[WheelAuctionPageTitleResourceNames.PageTitle]
+	</PageTitle>
+}
+else
+{
+	<PageTitle>
+		@ChildContent - @StringLocalizer[WheelAuctionPageTitleResourceNames.PageTitle]
+	</PageTitle>
+}
+
+@code {
+	[Parameter]
+	public RenderFragment? ChildContent { get; set; }
+}
