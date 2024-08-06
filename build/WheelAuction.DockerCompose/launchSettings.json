@@ -3,14 +3,15 @@
         "Docker Compose (All services)": {
             "commandName": "DockerCompose",
             "commandVersion": "1.0",
+            "composeLaunchServiceName": "wheelauction.webui",
+            "composeLaunchAction": "None",
             "serviceActions": {
                 "wheelauction.webui": "StartDebugging",
                 "wheelauction.db": "StartWithoutDebugging",
                 "wheelauction.cache": "StartWithoutDebugging",
-                "wheelauction.seq": "StartWithoutDebugging"
-            },
-            "composeLaunchServiceName": "wheelauction.webui",
-            "composeLaunchAction": "None"
+                "wheelauction.seq": "StartWithoutDebugging",
+                "wheelauction.dbadmin": "StartWithoutDebugging"
+            }
         },
         "Docker Compose (External services)": {
             "commandName": "DockerCompose",
@@ -19,20 +20,22 @@
                 "wheelauction.webui": "DoNotStart",
                 "wheelauction.db": "StartWithoutDebugging",
                 "wheelauction.cache": "StartWithoutDebugging",
-                "wheelauction.seq": "StartWithoutDebugging"
+                "wheelauction.seq": "StartWithoutDebugging",
+                "wheelauction.dbadmin": "StartWithoutDebugging"
             }
         },
         "Docker Compose (Web UI)": {
             "commandName": "DockerCompose",
             "commandVersion": "1.0",
+            "composeLaunchServiceName": "wheelauction.webui",
+            "composeLaunchAction": "None",
             "serviceActions": {
                 "wheelauction.webui": "StartDebugging",
                 "wheelauction.db": "DoNotStart",
                 "wheelauction.cache": "DoNotStart",
-                "wheelauction.seq": "DoNotStart"
-            },
-            "composeLaunchServiceName": "wheelauction.webui",
-            "composeLaunchAction": "None"
+                "wheelauction.seq": "DoNotStart",
+                "wheelauction.dbadmin": "DoNotStart"
+            }
         }
     }
 }

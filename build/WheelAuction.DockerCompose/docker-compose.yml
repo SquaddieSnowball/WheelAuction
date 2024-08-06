@@ -10,8 +10,8 @@ services:
     build:
       context: ../..
     ports:
-      - 8080:8080
-      - 8081:8081
+      - 8080:80
+      - 8081:443
     environment:
       - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
       - ASPNETCORE_HTTP_PORTS=${ASPNETCORE_HTTP_PORTS}
@@ -21,7 +21,7 @@ services:
     container_name: wheelauction-db
     image: postgres
     ports:
-      - 5432:5432
+      - 9010:5432
     environment:
       - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_USER=${POSTGRES_USER}
@@ -33,7 +33,7 @@ services:
     container_name: wheelauction-cache
     image: redis
     ports:
-      - 6379:6379
+      - 9020:6379
     healthcheck:
       test: redis-cli ping | grep PONG
 
@@ -41,9 +41,15 @@ services:
     container_name: wheelauction-seq
     image: datalust/seq
     ports:
-      - 5341:5341
-      - 45341:45341
-      - 5000:80
-      - 5001:443
+      - 9050:80
     environment:
       - ACCEPT_EULA=${ACCEPT_EULA}
+
+  wheelauction.dbadmin:
+    container_name: wheelauction-dbadmin
+    image: dpage/pgadmin4
+    ports:
+      - 9060:80
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL}
+      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD}

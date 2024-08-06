@@ -1,0 +1,12 @@
+{
+    "Servers": {
+        "1": {
+            "Name": "wheelauction.db",
+            "Group": "Servers",
+            "Host": "wheelauction.db",
+            "Port": 5432,
+            "Username": "user",
+            "MaintenanceDB": "postgres"
+        }
+    }
+}

@@ -6,8 +6,8 @@
             "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
             "environmentVariables": {
                 "ASPNETCORE_ENVIRONMENT": "Development",
-                "ASPNETCORE_HTTP_PORTS": "8080",
-                "ASPNETCORE_HTTPS_PORTS": "8081"
+                "ASPNETCORE_HTTP_PORTS": "80",
+                "ASPNETCORE_HTTPS_PORTS": "443"
             },
             "httpPort": 8080,
             "sslPort": 8081,
@@ -30,16 +30,6 @@
             },
             "dotnetRunMessages": true,
             "inspectUri": "{wsProtocol}://{url.hostname}:{url.port}/_framework/debug/ws-proxy?browser={browserInspectUri}"
-        },
-        "WSL": {
-            "commandName": "WSL2",
-            "launchUrl": "https://localhost:8081",
-            "environmentVariables": {
-                "ASPNETCORE_ENVIRONMENT": "Development",
-                "ASPNETCORE_HTTP_PORTS": "8080",
-                "ASPNETCORE_HTTPS_PORTS": "8081"
-            },
-            "distributionName": ""
         }
     }
 }

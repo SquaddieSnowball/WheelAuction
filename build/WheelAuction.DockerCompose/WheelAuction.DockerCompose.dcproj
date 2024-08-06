@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <Project ToolsVersion="15.0" Sdk="Microsoft.Docker.Sdk">
 
 	<PropertyGroup Label="Globals">
 		<ProjectVersion>2.1</ProjectVersion>
 		<ProjectGuid>086e210f-353c-4ae5-8bd0-87fdef6f1e35</ProjectGuid>
-		<AdditionalComposeFilePaths>docker-compose.dev.windows.yml</AdditionalComposeFilePaths>
 		<DockerTargetOS>Linux</DockerTargetOS>
+		<AdditionalComposeFilePaths>docker-compose.dev.windows.yml</AdditionalComposeFilePaths>
 		<DockerServiceName>wheelauction.webui</DockerServiceName>
-		<DockerPublishLocally>False</DockerPublishLocally>
 		<DockerLaunchAction>None</DockerLaunchAction>
+		<DockerPublishLocally>False</DockerPublishLocally>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -20,6 +21,7 @@
 		<None Include="docker-compose.dev.windows.yml">
 			<DependentUpon>docker-compose.yml</DependentUpon>
 		</None>
+		<None Include="services\wheelauction.dbadmin\configuration\servers.json" />
 	</ItemGroup>
 
 </Project>
