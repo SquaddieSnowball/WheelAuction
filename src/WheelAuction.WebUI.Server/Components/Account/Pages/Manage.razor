@@ -1,0 +1,15 @@
+﻿@page "/Account/Manage"
+
+@using Microsoft.AspNetCore.Authorization
+@using WheelAuction.WebUI.Server.Resources.Components.Account.Pages
+
+@attribute [Authorize]
+@inject IStringLocalizer<Manage> StringLocalizer
+
+<WheelAuctionPageTitle>
+	@StringLocalizer[ManageResourceNames.PageTitle]
+</WheelAuctionPageTitle>
+
+<h2 class="mb-3">
+	@StringLocalizer[ManageResourceNames.PageHeader]
+</h2>
