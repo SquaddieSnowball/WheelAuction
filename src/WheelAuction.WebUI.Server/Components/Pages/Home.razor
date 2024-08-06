@@ -1,5 +1,21 @@
 ﻿@page "/"
 
-<PageTitle>Wheel auction</PageTitle>
+@using WheelAuction.WebUI.Client.Components.Auctions.Shared
+@using WheelAuction.WebUI.Client.Services.Abstractions
+@using WheelAuction.WebUI.Server.Resources.Components.Pages
 
-<h1>Wheel auction</h1>
+@inject IRedirectManager RedirectManager
+@inject IStringLocalizer<Home> StringLocalizer
+
+<AuthorizeView>
+	<Authorized>
+		<RedirectToDashboard />
+	</Authorized>
+	<NotAuthorized>
+		<WheelAuctionPageTitle />
+
+		<h2 class="mb-3">
+			@StringLocalizer[HomeResourceNames.PageHeader]
+		</h2>
+	</NotAuthorized>
+</AuthorizeView>
