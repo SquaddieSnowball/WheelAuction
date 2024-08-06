@@ -1,7 +1,13 @@
-﻿<Router AppAssembly="typeof(Server.Components._Imports).Assembly"
-		AdditionalAssemblies="new[] { typeof(Client.Components._Imports).Assembly }">
+﻿@using WheelAuction.WebUI.Client.Components.Account.Shared
+
+<Router AppAssembly="WheelAuction.WebUI.Server.Shared.AssemblyReference.Assembly"
+		AdditionalAssemblies="[WheelAuction.WebUI.Client.Shared.AssemblyReference.Assembly]">
 	<Found Context="routeData">
-		<RouteView RouteData="routeData" DefaultLayout="typeof(Layout.MainLayout)" />
-		<FocusOnNavigate RouteData="routeData" Selector="h1" />
+		<AuthorizeRouteView RouteData="routeData" DefaultLayout="typeof(Layout.MainLayout)">
+			<NotAuthorized>
+				<RedirectToLogin />
+			</NotAuthorized>
+		</AuthorizeRouteView>
+		<FocusOnNavigate RouteData="routeData" Selector="h2" />
 	</Found>
 </Router>
