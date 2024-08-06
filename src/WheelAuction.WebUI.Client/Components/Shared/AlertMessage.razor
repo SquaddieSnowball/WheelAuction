@@ -1,0 +1,31 @@
+﻿@using WheelAuction.WebUI.Client.Components.Shared.Enumerations
+@using WheelAuction.WebUI.Client.Resources.Components.Shared
+
+@inject IStringLocalizer<AlertMessage> StringLocalizer
+
+@if (!string.IsNullOrEmpty(Message))
+{
+	<div class="alert alert-@MessageType.ToString().ToLower() alert-dismissible fade show" role="alert">
+		@if (!string.IsNullOrEmpty(Title))
+		{
+			<h4 class="alert-heading">
+				@Title
+			</h4>
+		}
+		<p>
+			@Message
+		</p>
+		<button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="@StringLocalizer[AlertMessageResourceNames.ButtonAlertClose]" />
+	</div>
+}
+
+@code {
+	[Parameter]
+	public string? Title { get; set; }
+
+	[Parameter]
+	public string? Message { get; set; }
+
+	[Parameter]
+	public AlertMessageType MessageType { get; set; }
+}
