@@ -18,8 +18,8 @@ internal class AuthenticationOptionsUserInputModelValidator : AbstractValidator<
 			.UserName()
 			.WithMessage(stringLocalizer[
 				AuthenticationOptionsUserInputModelValidatorResourceNames.ErrorMessageUserNameInvalid,
-				AuthenticationSettings.UserNameMinLength,
-				AuthenticationSettings.UserNameMaxLength]);
+				AuthenticationSettings.UserName.MinLength,
+				AuthenticationSettings.UserName.MaxLength]);
 
 		RuleFor(authenticationOptionsUserInputModel => authenticationOptionsUserInputModel.Password)
 			.Cascade(CascadeMode.Stop)
@@ -28,8 +28,8 @@ internal class AuthenticationOptionsUserInputModelValidator : AbstractValidator<
 			.Password()
 			.WithMessage(stringLocalizer[
 				AuthenticationOptionsUserInputModelValidatorResourceNames.ErrorMessagePasswordInvalid,
-				AuthenticationSettings.PasswordMinLength,
-				AuthenticationSettings.PasswordRequiredUniqueCharsCount]);
+				AuthenticationSettings.Password.MinLength,
+				AuthenticationSettings.Password.RequiredUniqueCharsCount]);
 
 		RuleFor(authenticationOptionsUserInputModel => authenticationOptionsUserInputModel.RoleName)
 			.RoleName()

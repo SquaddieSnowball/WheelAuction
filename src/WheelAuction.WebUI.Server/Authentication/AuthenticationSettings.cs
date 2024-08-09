@@ -2,22 +2,34 @@
 
 internal static class AuthenticationSettings
 {
-	public static readonly bool SignInRequireConfirmedAccount = false;
-	public static readonly bool SignInRequireConfirmedEmail = false;
-	public static readonly bool SignInRequireConfirmedPhoneNumber = false;
+	internal static class UserName
+	{
+		public static readonly int MinLength = 3;
+		public static readonly int MaxLength = 30;
+		public static readonly string AllowedCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+	}
 
-	public static readonly bool LockoutAllowedForNewUsers = true;
-	public static readonly int LockoutTimeMinutes = 5;
-	public static readonly int LockoutMaxFailedAccessAttempts = 5;
+	internal static class Password
+	{
+		public static readonly int MinLength = 8;
+		public static readonly int RequiredUniqueCharsCount = 2;
+		public static readonly bool RequireLowercaseChar = false;
+		public static readonly bool RequireUppercaseChar = false;
+		public static readonly bool RequireDigit = false;
+		public static readonly bool RequireNonAlphanumericChar = false;
+	}
 
-	public static readonly int UserNameMinLength = 3;
-	public static readonly int UserNameMaxLength = 30;
-	public static readonly string UserNameAllowedCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+	internal static class SignIn
+	{
+		public static readonly bool RequireConfirmedAccount = false;
+		public static readonly bool RequireConfirmedEmail = false;
+		public static readonly bool RequireConfirmedPhoneNumber = false;
+	}
 
-	public static readonly int PasswordMinLength = 8;
-	public static readonly int PasswordRequiredUniqueCharsCount = 2;
-	public static readonly bool PasswordRequireLowercaseChar = false;
-	public static readonly bool PasswordRequireUppercaseChar = false;
-	public static readonly bool PasswordRequireDigit = false;
-	public static readonly bool PasswordRequireNonAlphanumericChar = false;
+	internal static class Lockout
+	{
+		public static readonly bool AllowedForNewUsers = true;
+		public static readonly int TimeMinutes = 5;
+		public static readonly int MaxFailedAccessAttempts = 5;
+	}
 }

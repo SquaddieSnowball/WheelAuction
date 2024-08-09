@@ -18,8 +18,8 @@ internal class RegisterInputModelValidator : AbstractValidator<RegisterInputMode
 			.UserName()
 			.WithMessage(stringLocalizer[
 				RegisterInputModelValidatorResourceNames.ErrorMessageUserNameInvalid,
-				AuthenticationSettings.UserNameMinLength,
-				AuthenticationSettings.UserNameMaxLength]);
+				AuthenticationSettings.UserName.MinLength,
+				AuthenticationSettings.UserName.MaxLength]);
 
 		RuleFor(registerInputModel => registerInputModel.Password)
 			.Cascade(CascadeMode.Stop)
@@ -28,8 +28,8 @@ internal class RegisterInputModelValidator : AbstractValidator<RegisterInputMode
 			.Password()
 			.WithMessage(stringLocalizer[
 				RegisterInputModelValidatorResourceNames.ErrorMessagePasswordInvalid,
-				AuthenticationSettings.PasswordMinLength,
-				AuthenticationSettings.PasswordRequiredUniqueCharsCount]);
+				AuthenticationSettings.Password.MinLength,
+				AuthenticationSettings.Password.RequiredUniqueCharsCount]);
 
 		RuleFor(registerInputModel => registerInputModel.ConfirmPassword)
 			.Cascade(CascadeMode.Stop)

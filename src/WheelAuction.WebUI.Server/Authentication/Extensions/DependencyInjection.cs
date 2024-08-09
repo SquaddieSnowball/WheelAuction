@@ -39,22 +39,22 @@ internal static class DependencyInjection
 		services
 			.AddIdentity<User, Role>(identityOptions =>
 			{
-				identityOptions.SignIn.RequireConfirmedAccount = AuthenticationSettings.SignInRequireConfirmedAccount;
-				identityOptions.SignIn.RequireConfirmedEmail = AuthenticationSettings.SignInRequireConfirmedEmail;
-				identityOptions.SignIn.RequireConfirmedPhoneNumber = AuthenticationSettings.SignInRequireConfirmedPhoneNumber;
+				identityOptions.User.AllowedUserNameCharacters = AuthenticationSettings.UserName.AllowedCharacters;
 
-				identityOptions.Lockout.AllowedForNewUsers = AuthenticationSettings.LockoutAllowedForNewUsers;
-				identityOptions.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(AuthenticationSettings.LockoutTimeMinutes);
-				identityOptions.Lockout.MaxFailedAccessAttempts = AuthenticationSettings.LockoutMaxFailedAccessAttempts;
+				identityOptions.Password.RequiredLength = AuthenticationSettings.Password.MinLength;
+				identityOptions.Password.RequiredUniqueChars = AuthenticationSettings.Password.RequiredUniqueCharsCount;
+				identityOptions.Password.RequireLowercase = AuthenticationSettings.Password.RequireLowercaseChar;
+				identityOptions.Password.RequireUppercase = AuthenticationSettings.Password.RequireUppercaseChar;
+				identityOptions.Password.RequireDigit = AuthenticationSettings.Password.RequireDigit;
+				identityOptions.Password.RequireNonAlphanumeric = AuthenticationSettings.Password.RequireNonAlphanumericChar;
 
-				identityOptions.User.AllowedUserNameCharacters = AuthenticationSettings.UserNameAllowedCharacters;
+				identityOptions.SignIn.RequireConfirmedAccount = AuthenticationSettings.SignIn.RequireConfirmedAccount;
+				identityOptions.SignIn.RequireConfirmedEmail = AuthenticationSettings.SignIn.RequireConfirmedEmail;
+				identityOptions.SignIn.RequireConfirmedPhoneNumber = AuthenticationSettings.SignIn.RequireConfirmedPhoneNumber;
 
-				identityOptions.Password.RequiredLength = AuthenticationSettings.PasswordMinLength;
-				identityOptions.Password.RequiredUniqueChars = AuthenticationSettings.PasswordRequiredUniqueCharsCount;
-				identityOptions.Password.RequireLowercase = AuthenticationSettings.PasswordRequireLowercaseChar;
-				identityOptions.Password.RequireUppercase = AuthenticationSettings.PasswordRequireUppercaseChar;
-				identityOptions.Password.RequireDigit = AuthenticationSettings.PasswordRequireDigit;
-				identityOptions.Password.RequireNonAlphanumeric = AuthenticationSettings.PasswordRequireNonAlphanumericChar;
+				identityOptions.Lockout.AllowedForNewUsers = AuthenticationSettings.Lockout.AllowedForNewUsers;
+				identityOptions.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(AuthenticationSettings.Lockout.TimeMinutes);
+				identityOptions.Lockout.MaxFailedAccessAttempts = AuthenticationSettings.Lockout.MaxFailedAccessAttempts;
 			})
 			.AddEntityFrameworkStores<IdentityDbContext>();
 
