@@ -7,9 +7,9 @@ using Microsoft.Extensions.Localization;
 using System.Collections.Concurrent;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
-using WheelAuction.WebUI.Client.Resources.Validation.Services;
+using WheelAuction.WebUI.Client.Resources.Components.Shared;
 
-namespace WheelAuction.WebUI.Client.Validation.Services;
+namespace WheelAuction.WebUI.Client.Components.Shared;
 
 public class FluentValidationValidator : ComponentBase, IDisposable
 {

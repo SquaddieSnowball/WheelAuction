@@ -1,4 +1,4 @@
-﻿namespace WheelAuction.WebUI.Client.Resources.Validation.Services;
+﻿namespace WheelAuction.WebUI.Client.Resources.Components.Shared;
 
 internal static class FluentValidationValidatorResourceNames
 {
