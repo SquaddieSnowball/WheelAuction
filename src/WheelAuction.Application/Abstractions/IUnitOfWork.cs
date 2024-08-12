@@ -1,4 +1,4 @@
-﻿namespace WheelAuction.Domain.Abstractions;
+﻿namespace WheelAuction.Application.Abstractions;
 
 public interface IUnitOfWork
 {

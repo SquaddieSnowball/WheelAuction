@@ -1,4 +1,4 @@
-﻿using WheelAuction.Domain.Abstractions;
+﻿using WheelAuction.Application.Abstractions;
 
 namespace WheelAuction.Infrastructure.Persistence.Services;
 
