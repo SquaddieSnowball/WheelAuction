@@ -9,7 +9,7 @@ namespace WheelAuction.Infrastructure.Extensions;
 
 public static class DependencyInjection
 {
-	public static IServiceCollection AddInfrastructure(this IServiceCollection services, string applicationDbConnectionString)
+	public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, string applicationDbConnectionString)
 	{
 		services
 			.AddDbContext<ApplicationDbContext>(optionsBuilder =>

@@ -1,6 +1,5 @@
 using FluentValidation;
 using WheelAuction.Application.Extensions;
-using WheelAuction.Domain.Extensions;
 using WheelAuction.Infrastructure.Extensions;
 using WheelAuction.Infrastructure.Persistence.Services.Abstractions;
 using WheelAuction.WebUI.Client.Services;
@@ -22,9 +21,8 @@ string dbConnectionString = applicationBuilder.Configuration.GetConnectionString
 	: ConnectionStringNames.LocalDb)!;
 
 applicationBuilder.Services
-	.AddDomain()
-	.AddApplication()
-	.AddInfrastructure(dbConnectionString);
+	.AddApplicationServices()
+	.AddInfrastructureServices(dbConnectionString);
 
 applicationBuilder.Services
 	.AddConfiguredOptions();
