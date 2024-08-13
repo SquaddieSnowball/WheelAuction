@@ -2,4 +2,4 @@
 
 namespace WheelAuction.Application.Abstractions;
 
-public interface IRepository<T> where T : AggregateRoot { }
+public interface IRepository<TEntity> where TEntity : AggregateRoot<TEntity> { }
