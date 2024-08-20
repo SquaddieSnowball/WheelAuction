@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.DependencyInjection;
+using WheelAuction.Application.Abstractions;
 using WheelAuction.Infrastructure.Persistence;
 using WheelAuction.Infrastructure.Persistence.Services;
 using WheelAuction.Infrastructure.Persistence.Services.Abstractions;
@@ -21,6 +22,7 @@ public static class DependencyInjection
 						DbContextSettings.DefaultSchema);
 				});
 			})
+			.AddScoped<IUnitOfWork, ApplicationDbContextUnitOfWork>()
 			.AddSingleton<IMigrationsConfigurator, ApplicationDbContextMigrationsConfigurator>();
 
 		return services;
