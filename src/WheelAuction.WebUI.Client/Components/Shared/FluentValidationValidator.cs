@@ -3,11 +3,9 @@ using FluentValidation.Internal;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.Extensions.Localization;
 using System.Collections.Concurrent;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
-using WheelAuction.WebUI.Client.Resources.Components.Shared;
 
 namespace WheelAuction.WebUI.Client.Components.Shared;
 
@@ -25,19 +23,15 @@ public class FluentValidationValidator : ComponentBase, IDisposable
 	[Inject]
 	public IServiceProvider ServiceProvider { get; set; } = default!;
 
-	[Inject]
-	public IStringLocalizer<FluentValidationValidator> StringLocalizer { get; set; } = default!;
-
 	protected override void OnInitialized()
 	{
 		base.OnInitialized();
 
 		if (CurrentEditContext is null)
 		{
-			throw new InvalidOperationException(StringLocalizer[
-				FluentValidationValidatorResourceNames.ErrorMessageEditContextNull,
-				typeof(FluentValidationValidator).FullName!,
-				typeof(EditContext).FullName!]);
+			throw new InvalidOperationException(
+				$"{typeof(FluentValidationValidator).Name} requires a " +
+				$"cascading parameter of type '{typeof(EditContext).FullName}'");
 		}
 
 		CurrentEditContext.OnValidationRequested += EditContextOnValidationRequested;
@@ -53,10 +47,9 @@ public class FluentValidationValidator : ComponentBase, IDisposable
 
 		if (CurrentEditContext != _originalEditContext)
 		{
-			throw new InvalidOperationException(StringLocalizer[
-				FluentValidationValidatorResourceNames.ErrorMessageEditContextMissmatch,
-				typeof(FluentValidationValidator).FullName!,
-				typeof(EditContext).FullName!]);
+			throw new InvalidOperationException(
+				$"{typeof(FluentValidationValidator).Name} does not support " +
+				$"changing the '{typeof(EditContext).FullName}' dynamically");
 		}
 	}
 
@@ -129,7 +122,7 @@ public class FluentValidationValidator : ComponentBase, IDisposable
 		return false;
 	}
 
-	private FieldIdentifier ConvertToFieldIdentifier(object model, string propertyName)
+	private static FieldIdentifier ConvertToFieldIdentifier(object model, string propertyName)
 	{
 		int tokenEndIndex = propertyName.IndexOfAny(s_propertyPathSeparators);
 
@@ -147,11 +140,10 @@ public class FluentValidationValidator : ComponentBase, IDisposable
 
 			if (!token.EndsWith("]"))
 			{
-				PropertyInfo? property = model.GetType().GetProperty(token.ToString())
-					?? throw new InvalidOperationException(StringLocalizer[
-						FluentValidationValidatorResourceNames.ErrorMessagePropertyNameConverterPropertyNotFound,
-						token.ToString(),
-						model.GetType().FullName!]);
+				PropertyInfo property = model.GetType().GetProperty(token.ToString())
+					?? throw new InvalidOperationException(
+						$"Could not find property named '{token.ToString()}' " +
+						$"on object of type '{model.GetType().FullName}'");
 
 				currentModel = property.GetValue(model);
 			}
@@ -191,9 +183,8 @@ public class FluentValidationValidator : ComponentBase, IDisposable
 							}
 
 						default:
-							throw new InvalidOperationException(StringLocalizer[
-								FluentValidationValidatorResourceNames.ErrorMessagePropertyNameConverterIndexerNotFound,
-								model.GetType().FullName!]);
+							throw new InvalidOperationException(
+								$"Could not find indexer for object of type '{model.GetType().FullName}'");
 					}
 				}
 			}
