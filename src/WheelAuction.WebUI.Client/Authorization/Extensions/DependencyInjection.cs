@@ -9,8 +9,7 @@ internal static class DependencyInjection
 		services
 			.AddAuthorizationCore(authorizationOptions =>
 			{
-				authorizationOptions
-					.AddAllPolicies();
+				authorizationOptions.AddAllPolicies();
 			});
 
 		return services;

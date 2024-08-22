@@ -58,11 +58,11 @@
 	private string? _alertMessageTitle;
 	private string? _alertMessageDescription;
 
-	[SupplyParameterFromForm]
-	private LoginInputModel LoginInputModel { get; set; } = new();
-
 	[SupplyParameterFromQuery]
 	private string? ReturnUrl { get; set; }
+
+	[SupplyParameterFromForm]
+	private LoginInputModel LoginInputModel { get; set; } = new();
 
 	private async Task LoginUser()
 	{

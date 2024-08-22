@@ -4,7 +4,8 @@ using WheelAuction.Infrastructure.Persistence.Services.Abstractions;
 
 namespace WheelAuction.Infrastructure.Persistence.Services;
 
-internal class ApplicationDbContextMigrationsConfigurator(IServiceScopeFactory serviceScopeFactory) : IMigrationsConfigurator
+internal class ApplicationDbContextMigrationsConfigurator(IServiceScopeFactory serviceScopeFactory)
+	: IMigrationsConfigurator
 {
 	private readonly IServiceScopeFactory _serviceScopeFactory = serviceScopeFactory;
 
@@ -12,6 +13,7 @@ internal class ApplicationDbContextMigrationsConfigurator(IServiceScopeFactory s
 	{
 		await using AsyncServiceScope scope = _serviceScopeFactory.CreateAsyncScope();
 		ApplicationDbContext applicationDbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+
 		applicationDbContext.Database.Migrate();
 	}
 }

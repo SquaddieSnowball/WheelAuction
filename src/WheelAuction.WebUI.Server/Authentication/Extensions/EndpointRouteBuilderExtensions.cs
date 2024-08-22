@@ -8,7 +8,8 @@ namespace WheelAuction.WebUI.Server.Authentication.Extensions;
 
 internal static class EndpointRouteBuilderExtensions
 {
-	public static IEndpointConventionBuilder MapAdditionalAccountEndpoints(this IEndpointRouteBuilder endpointRouteBuilder)
+	public static IEndpointConventionBuilder MapAdditionalAccountEndpoints(
+		this IEndpointRouteBuilder endpointRouteBuilder)
 	{
 		RouteGroupBuilder accountRouteGroupBuilder = endpointRouteBuilder.MapGroup(EndpointRouteGroups.Account);
 
@@ -18,7 +19,8 @@ internal static class EndpointRouteBuilderExtensions
 		return accountRouteGroupBuilder;
 	}
 
-	private static IEndpointRouteBuilder MapLogoutEndpoint(this IEndpointRouteBuilder endpointRouteBuilder)
+	private static IEndpointRouteBuilder MapLogoutEndpoint(
+		this IEndpointRouteBuilder endpointRouteBuilder)
 	{
 		endpointRouteBuilder.MapPost(EndpointRoutes.Logout, async (
 			[FromServices] ILoggerFactory loggerFactory,

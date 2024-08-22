@@ -17,11 +17,11 @@ public class FluentValidationValidator : ComponentBase, IDisposable
 	private EditContext? _originalEditContext;
 	private ValidationMessageStore? _validationMessages;
 
-	[CascadingParameter]
-	private EditContext? CurrentEditContext { get; set; }
-
 	[Inject]
 	public IServiceProvider ServiceProvider { get; set; } = default!;
+
+	[CascadingParameter]
+	private EditContext? CurrentEditContext { get; set; }
 
 	protected override void OnInitialized()
 	{

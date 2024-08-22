@@ -22,7 +22,9 @@ internal static class DependencyInjection
 		return services;
 	}
 
-	public static IServiceCollection AddConfiguredIdentity(this IServiceCollection services, string identityDbConnectionString)
+	public static IServiceCollection AddConfiguredIdentity(
+		this IServiceCollection services,
+		string identityDbConnectionString)
 	{
 		services
 			.AddDbContext<IdentityDbContext>(optionsBuilder =>
